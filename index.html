@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parappa Engine | Menu</title>
+    <link rel="icon" type="image/gif" href="https://www.kaixvny.com/images/favicon.gif">
+    <style>
+        @font-face {
+            font-family: 'Tekton';
+            src: url('fonts/tektonbold.ttf') format('truetype');
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('sprites/other/parappabg.png');
+            background-size: cover;
+            background-position: center;
+            font-family: "Tekton", sans-serif;
+        }
+        .center-guy {
+            background-color: rgba(128, 0, 128, 0.8);
+            width: 500px;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+        }
+
+        .banner-image {
+            max-width: 80%;
+            margin-top: 100px;
+        }
+        .center-guy h1, h3 {
+            color: white;
+            text-align: center;
+            font-size: 25px;
+        }
+        .center-guy p, footer {
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .center-guy hr {
+            width: 80%;
+            border: none;
+            height: 3px;
+            background-color: white;
+            margin: 20px 0;
+        }
+        .noteskin-options {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .center-guy button {
+            color: rgb(238, 219, 254);
+            background-color: rgb(80, 43, 85);
+            height: 5%;
+            width: 20%;
+            font-family: "Comic Sans MS", sans-serif;
+        }
+        a:link {
+            color: rgb(148, 141, 255);
+        }
+        a:visited {
+            color: rgb(210, 140, 209);
+        }
+        a:hover {
+            color: red;
+        }
+        a:active {
+            color: rgb(221, 109, 255);
+        }
+
+        .keybinds {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .keybind {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .keybind img {
+            max-width: 80%;
+            margin-top:10px;
+            margin-bottom: 5px;
+        }
+
+        .keybind input {
+            width: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-guy">
+        <img class="banner-image" src="sprites/Other/parappabanner.png" alt="Top Image">        <h1>Parappa the Rapper HTML/JS port lol</h1>
+        <h1 style="font-size: 12px; margin:0px;">by kaixvny</h1>
+        <hr>
+        <p>hello welcome to my very bad/rushed port of parappa the rapper in html, very broken and clunky but i literally only did it for the fun of it LMAO </p>
+        <p>currently only stage 1 (chop chop master onion) is playable, no clue if im ever gonna make the rest. anyways enjoy.</p>
+        <hr>
+        <h1 style="font-size: 18px; margin-top:0px;">please select your settings...</h1>
+        <h1 style="font-size: 16px; margin-top:5px;">noteskin:</h1>
+        <form>
+            <div class="noteskin-options" style="margin-right: 5px">
+                <input type="radio" id="PS1" name="noteskin" value="PS1" checked>
+                <label for="PS1">PS1</label>
+
+                <input type="radio" id="PSP" name="noteskin" value="PSP">
+                <label for="PSP">PSP</label>
+
+                <input type="radio" id="PS2" name="noteskin" value="PS2">
+                <label for="PS2">PS2</label>
+            </div>
+
+            <h1 style="font-size: 16px; margin-top:5px;">Keybinds:</h1>
+            <div class="keybinds">
+                <div class="keybind">
+                    <label for="keyTriangle"><img id="imgTriangle" src="sprites/hud/gameplay/buttons/ps1/TRIANGLE.png" alt="Triangle" width="30"></label>
+                    <input type="text" id="keyTriangle" name="keyTriangle" maxlength="1" value="W">
+                </div>
+                <div class="keybind">
+                    <label for="keySquare"><img id="imgSquare" src="sprites/hud/gameplay/buttons/ps1/SQUARE.png" alt="Square" width="30"></label>
+                    <input type="text" id="keySquare" name="keySquare" maxlength="1" value="A">
+                </div>
+                <div class="keybind">
+                    <label for="keyX"><img id="imgX" src="sprites/hud/gameplay/buttons/ps1/X.png" alt="X" width="30"></label>
+                    <input type="text" id="keyX" name="keyX" maxlength="1" value="S">
+                </div>
+                <div class="keybind">
+                    <label for="keyCircle"><img id="imgCircle" src="sprites/hud/gameplay/buttons/ps1/CIRCLE.png" alt="Circle" width="30"></label>
+                    <input type="text" id="keyCircle" name="keyCircle" maxlength="1" value="D">
+                </div>
+                <div class="keybind">
+                    <label for="keyLeft"><img id="imgLeft" src="sprites/hud/gameplay/buttons/ps1/L.png" alt="Left" width="30"></label>
+                    <input type="text" id="keyLeft" name="keyLeft" maxlength="1" value="Q">
+                </div>
+                <div class="keybind">
+                    <label for="keyRight"><img id="imgRight" src="sprites/hud/gameplay/buttons/ps1/R.png" alt="Right" width="30"></label>
+                    <input type="text" id="keyRight" name="keyRight" maxlength="1" value="E">
+                </div>
+            </div>
+        </form>
+
+        <hr>
+        <button type="button" onclick="startParappa()">Start Game</button>
+        <footer style="font-size:13px; margin:2%"><a href="credits.html">credits</a> • <a href="github.com">github repo</a> • <a href="https://www.kaixvny.com">back to kaixvny.com</a></footer>
+    </div>
+
+    <script>
+        function saveToLocalStorage() {
+            const selectedNoteskin = document.querySelector('input[name="noteskin"]:checked').value;
+            const keyCircle = document.getElementById('keyCircle').value;
+            const keyX = document.getElementById('keyX').value;
+            const keyTriangle = document.getElementById('keyTriangle').value;
+            const keySquare = document.getElementById('keySquare').value;
+            const keyLeft = document.getElementById('keyLeft').value;
+            const keyRight = document.getElementById('keyRight').value;
+
+            localStorage.setItem('selectedNoteskin', selectedNoteskin);
+            localStorage.setItem('keyCircle', keyCircle);
+            localStorage.setItem('keyX', keyX);
+            localStorage.setItem('keyTriangle', keyTriangle);
+            localStorage.setItem('keySquare', keySquare);
+            localStorage.setItem('keyLeft', keyLeft);
+            localStorage.setItem('keyRight', keyRight);
+        }
+
+        function loadFromLocalStorage() {
+            const savedNoteskin = localStorage.getItem('selectedNoteskin');
+            const savedKeyCircle = localStorage.getItem('keyCircle');
+            const savedKeyX = localStorage.getItem('keyX');
+            const savedKeyTriangle = localStorage.getItem('keyTriangle');
+            const savedKeySquare = localStorage.getItem('keySquare');
+            const savedKeyLeft = localStorage.getItem('keyLeft');
+            const savedKeyRight = localStorage.getItem('keyRight');
+
+            if (savedNoteskin) {
+                const radioButton = document.querySelector(`input[value="${savedNoteskin}"]`);
+                if (radioButton) {
+                    radioButton.checked = true;
+                }
+            } else {
+                document.getElementById('PS1').checked = true;
+            }
+
+            if (savedKeyCircle) document.getElementById('keyCircle').value = savedKeyCircle;
+            if (savedKeyX) document.getElementById('keyX').value = savedKeyX;
+            if (savedKeyTriangle) document.getElementById('keyTriangle').value = savedKeyTriangle;
+            if (savedKeySquare) document.getElementById('keySquare').value = savedKeySquare;
+            if (savedKeyLeft) document.getElementById('keyLeft').value = savedKeyLeft;
+            if (savedKeyRight) document.getElementById('keyRight').value = savedKeyRight;
+        }
+
+        document.querySelectorAll('input[name="noteskin"]').forEach((radio) => {
+            radio.addEventListener('change', saveToLocalStorage);
+        });
+
+        document.querySelectorAll('.keybinds input').forEach((input) => {
+            input.addEventListener('change', saveToLocalStorage);
+        });
+
+        function startParappa() {
+            window.location.href = "stage1.html";
+        }
+
+        function updateNoteSkinImages(noteskin) {
+            document.getElementById('imgCircle').src = `sprites/hud/gameplay/buttons/${noteskin}/CIRCLE.png`;
+            document.getElementById('imgX').src = `sprites/hud/gameplay/buttons/${noteskin}/X.png`;
+            document.getElementById('imgTriangle').src = `sprites/hud/gameplay/buttons/${noteskin}/TRIANGLE.png`;
+            document.getElementById('imgSquare').src = `sprites/hud/gameplay/buttons/${noteskin}/SQUARE.png`;
+            document.getElementById('imgLeft').src = `sprites/hud/gameplay/buttons/${noteskin}/L.png`;
+            document.getElementById('imgRight').src = `sprites/hud/gameplay/buttons/${noteskin}/R.png`;
+        }
+
+        document.querySelectorAll('input[name="noteskin"]').forEach((radio) => {
+            radio.addEventListener('change', (event) => {
+                updateNoteSkinImages(event.target.value);
+            });
+        });
+
+window.onload = function () {
+    const savedNoteskin = localStorage.getItem('selectedNoteskin') || 'ps1';
+    updateNoteSkinImages(savedNoteskin);
+};
+
+        window.onload = loadFromLocalStorage;
+    </script>
+</body>
+</html>
