@@ -61,7 +61,7 @@ const sectionEvents = {
         chopSound = 3; 
         punchSound = 2; 
     },
-    80: function() { 
+    81: function() { 
         window.location.href = "https://parappa.kaixvny.com/"
     }
 };
