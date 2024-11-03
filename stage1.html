@@ -1,1 +1,750 @@
-<!--will upload later-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Parappa Engine | Stage 1</title>
+    <link rel="icon" type="image/gif" href="https://www.kaixvny.com/images/favicon.gif">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        @font-face {
+            font-family: 'Tekton';
+            src: url('fonts/tektonbold.ttf') format('truetype');
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color:rgb(200, 200, 255);
+        }
+
+        #loseScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: "Tekton", "Comic Sans MS";
+            z-index: 9;
+        }
+
+        .loseOptions {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .loseChoice {
+            margin: 0 10px;
+        }
+
+        #startScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("sprites/other/parappabg.png");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            -webkit-text-stroke: 2px rgb(255, 255, 255);
+            font-family: "Tekton", "Comic Sans MS";
+            font-size: 70px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .gameplay {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            width: 100%;
+            margin-top: 3%;
+        }
+
+        .gameplay img {
+            width: 30px;
+            margin: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        #parappa {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+        }
+
+        #parappaImage {
+            position: absolute;
+            height: 30px;
+            transition: left 0.27s linear;
+            z-index: 2;
+            top: -35px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotateY(0deg) scale(1);
+            }
+            50% {
+                transform: rotateY(180deg) scale(1.4);
+            }
+            100% {
+                transform: rotateY(360deg) scale(1);
+            }
+        }
+
+        .spin-effect {
+            animation: spin 0.5s linear;
+        }
+
+        /* rating */
+
+        .container {
+            display: flex;
+            position: absolute;
+            align-items: center;
+            top: 60%;
+            left: 78%;
+        }
+
+        .urappin {
+            margin-right: 15px;
+            width:90px;
+        }
+
+        .rating {
+            position: relative;
+            height: 100px;
+            width: 200px;
+            overflow: hidden;
+        }
+
+        .rating-list {
+            position: absolute;
+            top: 0;
+            transition: top 0.5s ease;
+        }
+
+        .rating-item {
+            display: flex;
+            align-items: center;
+            height: 25px;
+        }
+
+        .rating-item img {
+            height: 25px;
+            margin-right: 5px;
+        }
+
+        .dialogue-box {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            font-size: 25px;
+            font-family: "Tekton", "Comic Sans MS";
+            z-index: 3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Lose Screen -->
+    <div id="loseScreen">
+            <img style="width:350px" src="Sprites/HUD/Lose/TryAgain!!.png" alt="Try Again!!">
+            <div class="loseOptions">
+                <div class="loseChoice">
+                    <img style="width:150px" src="Sprites/HUD/Lose/yesOff.png" alt="Yes" id="yes">
+                </div>
+                <div class="loseChoice">
+                    <img style="width:150px" src="Sprites/HUD/Lose/noOff.png" alt="No" id="no">
+                </div>
+        </div>
+    </div>
+
+<div id="startScreen">Click to Start
+    <h1 style="font-size:30px; -webkit-text-stroke: 1px rgb(255, 255, 255)">(thank you browsers for needing a click for audio elements)</h1>
+</div>
+
+<div>
+    <div class="gameplay">
+        <img src="sprites/HUD/gameplay/beatOff.png" alt="beatOff" id="beat1">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat2">
+        <img src="sprites/hud/gameplay/barOff.png" alt="barOff" id="beat3">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat4">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat5">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat6">
+        <img src="sprites/hud/gameplay/barOff.png" alt="barOff" id="beat7">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat8">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat9">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat10">
+        <img src="sprites/hud/gameplay/barOff.png" alt="barOff" id="beat11">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat12">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat13">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat14">
+        <img src="sprites/hud/gameplay/barOff.png" alt="barOff" id="beat15">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat16">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat17">
+        <img src="sprites/hud/gameplay/beatOff.png" alt="beatOff" id="beat18">
+    </div>
+</div>
+
+<div id="parappa">
+    <img src="sprites/HUD/gameplay/icons/onion.png" alt="Parappa" id="parappaImage">
+</div>
+
+<!--rating-->
+
+<div class="container">
+    <div class="urappin">
+      <img style="top:-10px" src="sprites/HUD/Rating/urappin'.png" alt="u rappin'" width="100">
+    </div>
+
+    <div class="rating">
+      <div id="ratingList" class="rating-list">
+        <div class="rating-item" id="cool">
+          <img src="sprites/HUD/Rating/coolOff.png" alt="Cool Off">
+        </div>
+        <div class="rating-item" id="good">
+          <img src="sprites/HUD/Rating/goodOn.png" alt="Good On">
+        </div>
+        <div class="rating-item" id="bad">
+          <img src="sprites/HUD/Rating/badOff.png" alt="Bad Off">
+        </div>
+        <div class="rating-item" id="awful">
+          <img src="sprites/HUD/Rating/awfulOff.png" alt="Awful Off">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--dialogue-->
+  <div class="dialogue-box" id="dialogueBox">
+    <p></p>
+
+<script>
+let curSection = 0;
+const beats = document.querySelectorAll('.gameplay img');
+const parappaImage = document.getElementById('parappaImage');
+const totalBeats = beats.length;
+let Instrumental = new Audio("audio/Instrumental/stage1_good.wav");
+let InstrumentalBad = new Audio("audio/Instrumental/stage1_bad.wav");
+let InstrumentalAwful = new Audio("audio/Instrumental/stage1_awful.wav");
+var badSound = new Audio("audio/menu/did_bad.wav");
+var goodSound = new Audio("audio/menu/did_good.wav");
+var errorSound = new Audio("audio/parappa/error/oops.wav");
+let currentIndex = 0;
+let bpm = 136.3635;
+let endBeat = 8;
+let isTeachingSection = false;
+let sectionRating = false;
+let noteHitCorrect = null;
+let score = 0;
+let rating = 2;
+let gameOver = false;
+
+//noteskin
+const noteskinSetting = localStorage.getItem('selectedNoteskin');
+console.log(noteskinSetting)
+let noteSkin = noteskinSetting || 'ps1';
+
+//sound bs
+let kickSound = 1;
+let punchSound = 1;
+let chopSound = 1;
+let blockSound = 1;
+let rightSound = "turn1";
+let leftSound = "duck1";
+
+const ratings = ['awful', 'bad', 'good', 'cool'];
+const ratingImages = {      
+      awful: {
+          on: "sprites/HUD/Rating/awfulOn.png",
+          off: "sprites/HUD/Rating/awfulOff.png"
+      },
+      bad: {
+          on: "sprites/HUD/Rating/badOn.png",
+          off: "sprites/HUD/Rating/badOff.png"
+      },
+      good: {
+          on: "sprites/HUD/Rating/goodOn.png",
+          off: "sprites/HUD/Rating/goodOff.png"
+      },
+      cool: {
+          on: "sprites/HUD/Rating/coolOn.png",
+          off: "sprites/HUD/Rating/coolOff.png"
+      }
+  };
+
+  function updateRatingDisplay() {
+      ratings.forEach(ratingName => {
+          const ratingImg = document.getElementById(ratingName).querySelector('img');
+          if (ratingName === ratings[rating]) {
+              ratingImg.src = ratingImages[ratingName].on;
+          } else {
+              ratingImg.src = ratingImages[ratingName].off;
+          }
+      });
+  }
+
+  function setRating(newRating) {
+      rating = newRating;  // update gameshit
+      updateRatingDisplay();
+  }
+  setRating(rating);
+
+/*document.onkeypress = function (p) {
+    p = p || window.event;
+    noteSkin = "psp";
+
+    updateNoteSprites();
+};*/
+
+const noteSprites = {
+    "triangle": `sprites/hud/gameplay/buttons/${noteSkin}/triangle.png`,
+    "circle": `sprites/hud/gameplay/buttons/${noteSkin}/circle.png`,
+    "square": `sprites/hud/gameplay/buttons/${noteSkin}/square.png`,
+    "x": `sprites/hud/gameplay/buttons/${noteSkin}/x.png`,
+    "left": `sprites/hud/gameplay/buttons/${noteSkin}/l.png`,
+    "right": `sprites/hud/gameplay/buttons/${noteSkin}/r.png`
+};
+
+function updateNoteSprites() {
+    noteSprites.triangle = `sprites/hud/gameplay/buttons/${noteSkin}/triangle.png`;
+    noteSprites.circle = `sprites/hud/gameplay/buttons/${noteSkin}/circle.png`;
+    noteSprites.square = `sprites/hud/gameplay/buttons/${noteSkin}/square.png`;
+    noteSprites.x = `sprites/hud/gameplay/buttons/${noteSkin}/x.png`;
+    noteSprites.left = `sprites/hud/gameplay/buttons/${noteSkin}/l.png`;
+    noteSprites.right = `sprites/hud/gameplay/buttons/${noteSkin}/r.png`;
+
+    for (let i = 0; i < beats.length; i++) {
+        const noteType = beats[i].alt;
+        if (noteType && noteSprites[noteType]) {
+            beats[i].src = noteSprites[noteType];
+        }
+    }
+}
+
+// keymap for keyboard keybinds
+const keyMap = {
+    "triangle": localStorage.getItem('keyTriangle') || "W",
+    "circle": localStorage.getItem('keyCircle') || "D",
+    "x": localStorage.getItem('keyX') || "S",
+    "square": localStorage.getItem('keySquare') || "A",
+    "left": localStorage.getItem('keyLeft') || "Q",
+    "right": localStorage.getItem('keyRight') || "R"
+};
+
+const soundParappa = {
+    "triangle": new Audio(`audio/parappa/kick/kick${kickSound}.wav`),
+    "circle": new Audio(`audio/parappa/punch/punch${punchSound}.wav`),
+    "x": new Audio(`audio/parappa/chop/chop${chopSound}.wav`),
+    "square": new Audio(`audio/parappa/block/block${blockSound}.wav`),
+    "left": new Audio(`audio/parappa/LR_Sounds/${leftSound}.wav`),
+    "right": new Audio(`audio/parappa/LR_Sounds/${rightSound}.wav`)
+};
+
+function updateNoteSounds() {
+    soundParappa.triangle = new Audio(`audio/parappa/kick/kick${kickSound}.wav`);
+    soundParappa.circle = new Audio(`audio/parappa/punch/punch${punchSound}.wav`);
+    soundParappa.x = new Audio(`audio/parappa/chop/chop${chopSound}.wav`);
+    soundParappa.square = new Audio(`audio/parappa/block/block${blockSound}.wav`);
+    soundParappa.left = new Audio(`audio/parappa/LR_Sounds/${leftSound}.wav`);
+    soundParappa.right = new Audio(`audio/parappa/LR_Sounds/${rightSound}.wav`);
+
+    // Loop through all beats and assign the correct sound to each note
+    for (let i = 0; i < beats.length; i++) {
+        const noteType = beats[i].alt;
+        if (noteType && soundParappa[noteType]) {
+            soundParappa[noteType].load();
+            beats[i].sound = soundParappa[noteType];
+        }
+    }
+}
+
+const beatsWithNotes = new Array(totalBeats).fill(false);
+
+const teachingSections = [/*lesson1*/0, 2, 4, 6, 8, 10, 12, 14,16,17,18,19,/*lesson2*/ 20, 22, 24, 26, 28, 30, 32, 34,36,37,38,39,/*lesson3*/ 40, 42, 44, 46, 48, 50, 52, 54,56,57,58,59,60,/*lesson4*/ 61, 63, 65, 67, 69, 71, 73,75,76,77,78,79,80];
+
+function updateDialogueText() {
+    const dialogueBox = document.getElementById('dialogueBox');
+    const text = dialogue[curSection];
+    
+    if (text !== undefined) {
+        dialogueBox.innerHTML = text;
+    }
+}
+
+
+function updateParappaIcon() {
+    if (isTeachingSection) {
+        parappaImage.src = "sprites/HUD/gameplay/icons/onion.png";
+    } else {
+        parappaImage.src = "sprites/HUD/gameplay/icons/parappa.png";
+    }
+}
+
+function autoHitNotes() {
+    const noteType = beats[currentIndex].alt;
+    if (noteType && soundParappa[noteType]) {
+        beats[currentIndex].classList.add('spin-effect');
+        setTimeout(() => {
+            beats[currentIndex].classList.remove('spin-effect');
+        }, 500);
+    }
+}
+
+// make parappa a puppet and move him along
+function moveParappa() {
+    const beatElement = beats[currentIndex];
+    const beatPosition = beatElement.getBoundingClientRect().left;
+    const parentPosition = document.querySelector('.gameplay').getBoundingClientRect().left;
+    const parappaPosition = (beatPosition - parentPosition);
+
+    parappaImage.style.left = `${parappaPosition}px`;
+}
+
+// beat on / off effect
+function switchBeat(currentBeat, previousBeat) {
+    if (currentBeat.alt === 'barOff') {
+        currentBeat.src = 'sprites/hud/gameplay/barOn.png';
+    } else if (!beatsWithNotes[currentIndex] && currentBeat.alt === 'beatOff') {
+        currentBeat.src = 'sprites/hud/gameplay/beatOn.png';
+    }
+
+    if (previousBeat && !beatsWithNotes[(currentIndex - 1 + totalBeats) % totalBeats]) {
+        if (previousBeat.alt === 'beatOn') {
+            previousBeat.src = 'sprites/hud/gameplay/beatOff.png';
+        } else if (previousBeat.alt === 'barOn') {
+            previousBeat.src = 'sprites/hud/gameplay/barOff.png';
+        }
+    }
+}
+
+// does note exist in section
+function checkForNotes(section, index) {
+    const key = `${section}-${index}`;
+    const noteType = noteChart[key];
+
+    if (noteType && noteSprites[noteType]) {
+        const currentBeat = beats[index];
+        currentBeat.src = noteSprites[noteType];
+        currentBeat.alt = noteType;
+        beatsWithNotes[index] = true;
+    }
+}
+
+// handle key press // button shit
+function handleKeyPress(event) {
+    if (isTeachingSection) {
+        return; // teacher dies right here
+    }
+    
+    const keyPressed = event.key.toLowerCase();
+    const previousIndex = (currentIndex - 1 + totalBeats) % totalBeats;
+    const earlyLeniencyBeats = 2;
+    const lateLeniencyBeats = 3;
+    let hitBeatIndex = -1;
+
+    // early hit logic
+    for (let i = 1; i <= earlyLeniencyBeats; i++) {
+        const earlyIndex = (previousIndex - i + totalBeats) % totalBeats;
+        const earlyNote = beats[earlyIndex].alt;
+
+        if (keyMap[earlyNote]?.toLowerCase() === keyPressed) {
+            hitBeatIndex = earlyIndex;
+            break; // early hit detected
+        }
+    }
+
+    // ontime / late logcic
+    if (hitBeatIndex === -1) {
+        if (keyMap[beats[previousIndex].alt]?.toLowerCase() === keyPressed) {
+            hitBeatIndex = previousIndex; // 100% you win on time
+        } else if (keyMap[beats[previousIndex].alt]?.toLowerCase() != keyPressed) {
+                errorSound.play();
+                noteHitCorrect = false;
+                score -= 25
+            } else {
+            for (let i = 1; i <= lateLeniencyBeats; i++) {
+                const lateIndex = (currentIndex + i) % totalBeats;
+                const lateNote = beats[lateIndex].alt;
+
+                if (keyMap[lateNote]?.toLowerCase() === keyPressed) {
+                    hitBeatIndex = lateIndex;
+                    break; // late
+                }
+            }
+        }
+    }
+    if (hitBeatIndex !== -1) {
+        if (noteHitCorrect != false) {
+            noteHitCorrect = true;
+        }   
+
+    const currentNote = beats[hitBeatIndex].alt;
+    if (soundParappa[currentNote]) {
+        soundParappa[currentNote].play();
+        const beatElement = beats[hitBeatIndex];
+
+        // PLEASE SPIN
+        beatElement.classList.add('spin-effect');
+        setTimeout(() => {
+            beatElement.classList.remove('spin-effect');
+        }, 500);
+    }
+}
+}
+
+function updateScore() {
+    if (!isTeachingSection) {
+    if (sectionRating) {
+        score += 50;
+        goodSound.play();
+        if (rating < 3) {
+            rating += 1;
+        }
+    } else {
+        score -= 50;
+        badSound.play();
+        if (rating > -1) {
+            rating -= 1;
+        }
+    }
+    console.log(`Score: ${score} and secRating ${sectionRating} and NHC ${noteHitCorrect}`);
+}
+}
+
+// SET NOTES PLEASE I AM BEDGGING YOU PLEASE SET THE NOTES
+function setSectionNotes(section) {
+    for (let i = 0; i < beats.length; i++) {
+        checkForNotes(section, i);
+    }
+}
+
+// OH MY god you reset it once he hits the over thing
+function resetBeats() {
+    beats.forEach((beat, index) => {
+        if (beat.alt.includes("bar") || beat.id === "beat3" || beat.id === "beat7" || beat.id === "beat11" || beat.id === "beat15") {
+            beat.src = 'sprites/hud/gameplay/barOff.png';
+            beat.alt = 'barOff';
+        } else {
+            beat.src = 'sprites/hud/gameplay/beatOff.png';
+            beat.alt = 'beatOff';
+        }
+        beat.classList.remove('spin-effect');
+        beatsWithNotes[index] = false;
+    });
+}
+
+function startDialogue() {
+  const dialogueBox = document.getElementById('dialogueBox');
+  const dialogue = [
+    { text: "Kick! Punch! It's all in the mind!", delay: 6000 },
+    { text: "If you wanna test me, I'm sure you'll find", delay: 8018 },
+    { text: "The things I'll teach ya is sure to beat ya!", delay: 10036 },
+    { text: "Nevertheless, you'll get a lesson from teacher, now!", delay: 12054 }
+  ];
+
+  dialogue.forEach(({ text, delay }) => {
+    setTimeout(() => {
+        dialogueBox.innerHTML = text;
+    }, delay);
+  });
+}
+
+//thank you accurate interval i stole
+function interval(duration, fn) {
+    var _this = this;
+    this.baseline = undefined;
+    
+    this.run = function() {
+        if (_this.baseline === undefined) {
+            _this.baseline = new Date().getTime();
+        }
+        fn();
+        var end = new Date().getTime();
+        _this.baseline += duration;
+     
+        var nextTick = duration - (end - _this.baseline);
+        if (nextTick < 0) {
+            nextTick = 0;
+        }
+        
+        _this.timer = setTimeout(function() {
+            _this.run(end);
+        }, nextTick);
+    }
+
+    this.stop = function() {
+        clearTimeout(_this.timer);
+    }
+}
+
+// hello game loop
+function startGame() {
+    InstrumentalBad.volume = 0;
+    InstrumentalAwful.volume = 0;
+    Instrumental.play();
+    InstrumentalBad.play();
+    InstrumentalAwful.play();
+    startDialogue()
+
+    setTimeout(function () {
+        setSectionNotes(curSection);
+        
+        let gameInterval = new interval(136.3635, function () {
+
+            if (gameOver) {
+                this.stop();
+                Instrumental.pause();
+                InstrumentalBad.pause();
+                InstrumentalAwful.pause();
+                return;
+            }
+
+            const currentBeat = beats[currentIndex];
+            const previousBeat = beats[(currentIndex - 1 + totalBeats) % totalBeats];
+
+            switchBeat(currentBeat, previousBeat);
+            moveParappa();
+
+            // teaching shit
+            isTeachingSection = teachingSections.includes(curSection);
+            updateParappaIcon();
+
+            if (isTeachingSection) {
+                autoHitNotes(); // plase work
+            }
+
+            if (noteHitCorrect == true) {
+                sectionRating = true;
+            } else {
+                sectionRating = false;
+            }
+
+            currentIndex = (currentIndex + 1) % totalBeats;
+
+            //losing
+            if (rating === -1) {
+                gameOver = true;
+                document.getElementById('loseScreen').style.display = 'flex';
+            }
+
+            //dialoug (fix constant repeat)
+            updateDialogueText();
+
+            if (currentIndex === endBeat) {
+                curSection++;
+                resetBeats();
+                setSectionNotes(curSection);
+
+                //score bullshit
+                updateScore();
+                setRating(rating);
+                sectionRating = false;
+                noteHitCorrect = null;
+
+                //reset sounds
+                updateNoteSounds();
+
+                switch (rating) {
+                    case 0:
+                        Instrumental.volume = 0;
+                        InstrumentalBad.volume = 0;
+                        InstrumentalAwful.volume = 1;
+                        break;
+                        
+                    case 1:
+                        Instrumental.volume = 0;
+                        InstrumentalBad.volume = 1;
+                        InstrumentalAwful.volume = 0;
+                        break;
+                        
+                    default:
+                        Instrumental.volume = 1;
+                        InstrumentalBad.volume = 0;
+                        InstrumentalAwful.volume = 0;
+                        break;
+                }
+
+                //AUGUHU TECHINGG
+                isTeachingSection = teachingSections.includes(curSection); 
+                updateParappaIcon();
+
+                currentIndex = 0;
+                moveParappa();
+            }
+        //ma events
+        if (sectionEvents[curSection]) { 
+            sectionEvents[curSection](); 
+        }
+        });
+
+        gameInterval.run();
+
+    }, 14450); // delay for yap
+
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('loseScreen').style.display = 'none';
+}
+
+document.addEventListener('keydown', function(event) {
+            if (event.key === 'e') {
+                console.log(curSection);
+            }
+        });
+
+window.addEventListener('keydown', function(event) {
+    if (gameOver) {
+        if (event.key.toLowerCase() === 's') {
+            document.getElementById('yes').src = "sprites/hud/lose/yesOn.png"
+            setTimeout(function() {
+                location.reload();
+            }, 500);
+        } else if (event.key.toLowerCase() === 'd') {
+            document.getElementById('no').src = "sprites/hud/lose/noOn.png"
+                setTimeout(function() {
+                window.location.href = 'index.html';
+                }, 500);
+        }
+    }
+});
+
+document.getElementById('startScreen').addEventListener('click', startGame);
+window.addEventListener('keydown', handleKeyPress);
+</script>
+<!-- get chart, events, n dialogue-->
+<script src="chart/eventChart.js"></script>
+<script src="chart/noteChart.js"></script>
+<script src="chart/dialogueChart.js"></script>
+</body>
+</html>
